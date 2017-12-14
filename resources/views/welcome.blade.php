@@ -69,7 +69,7 @@
     <div class="title m-b-md">
         Fastest team overall
     </div>
-    @foreach($fastestTeamOverAll as $runner)
+    @foreach($fastestTeamOverall as $runner)
         @if($loop->first)
             #{{$loop->iteration}} leg is {{$runner->name}} in the time {{$runner->firstLeg}}s</br>
         @else

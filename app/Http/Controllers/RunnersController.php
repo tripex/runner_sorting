@@ -7,13 +7,24 @@ use Illuminate\Support\Facades\View;
 
 class RunnersController extends Controller {
 
+
+	/**
+	 * Collect the data that is needed for the view.
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function showRunningTeams() {
 		$fastestTeamByYear  = $this->getBestTeamByYear();
-		$fastestTeamOverAll = $this->getBestTeamOverAll();
+		$fastestTeamOverall = $this->getBestTeamOverall();
 
-		return ( view( 'welcome', compact( 'fastestTeamByYear', 'fastestTeamOverAll' ) ) );
+		return ( view( 'welcome', compact( 'fastestTeamByYear', 'fastestTeamOverall' ) ) );
 	}
 
+	/**
+	 * Return the fastest team divided by year
+	 *
+	 * @return mixed
+	 */
 	private function getBestTeamByYear() {
 		$years = Runner::distinct()
 		               ->orderBy( 'year', 'asc' )
@@ -39,7 +50,12 @@ class RunnersController extends Controller {
 		return ( $fastestTeamByYear );
 	}
 
-	private function getBestTeamOverAll() {
+	/**
+	 * Return the best team overall.
+	 *
+	 * @return mixed
+	 */
+	private function getBestTeamOverall() {
 		$fastestFirstLeg = Runner::orderBy( 'firstLeg', 'asc' )
 		                         ->first();
 
@@ -49,8 +65,8 @@ class RunnersController extends Controller {
 		                          ->get();
 
 		// Put all the runners into one collection
-		$fastestTeamOverAll = $fastestSecondLeg->prepend( $fastestFirstLeg );
+		$fastestTeamOverall = $fastestSecondLeg->prepend( $fastestFirstLeg );
 
-		return ( $fastestTeamOverAll );
+		return ( $fastestTeamOverall );
 	}
 }
